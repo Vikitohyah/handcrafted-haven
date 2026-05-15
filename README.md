@@ -61,8 +61,6 @@ The application provides a user-friendly digital marketplace where sellers can c
 ---
 
 ## Design Theme
-The project uses a warm artisan-inspired theme with earthy colors, clean layouts, and modern typography to reflect creativity, craftsmanship, and community.
-
 Brand Colors:
 - Orange/Amber (buttons, highlights, prices)
 - Gray (input backgrounds, hover states)
