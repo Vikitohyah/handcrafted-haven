@@ -5,6 +5,8 @@
 - Uthman Abisola Kolawole
 - Celine Mafigu
 
+---
+
 ## Project Overview
 Handcrafted Haven is a modern web application designed to help artisans and crafters showcase and sell unique handcrafted products online. The platform connects talented creators with customers who value handmade goods, creativity, and sustainable shopping.
 
