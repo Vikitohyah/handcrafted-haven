@@ -48,7 +48,7 @@ The application provides a user-friendly digital marketplace where sellers can c
 
 ### Tools & Platforms
 - Git & GitHub
-- GitHub Projects / Trello
+- GitHub Board / Trello
 - Vercel Deployment
 
 ---
@@ -57,10 +57,9 @@ The application provides a user-friendly digital marketplace where sellers can c
 The project uses a warm artisan-inspired theme with earthy colors, clean layouts, and modern typography to reflect creativity, craftsmanship, and community.
 
 Brand Colors:
-- 
-- 
-- 
-- 
+- Orange/Amber (buttons, highlights, prices)
+- Gray (input backgrounds, hover states)
+- White (cards, headers, content areas)
 
 Typography:
 - Poppins
@@ -76,6 +75,6 @@ The team uses:
 ---
 
 ## Team Members
-- Edorh Victoria
-- Uthman Abisola
+- Edorh Victoria Godshand
+- Uthman Abisola Kolawole
 - Celine Mafigu
