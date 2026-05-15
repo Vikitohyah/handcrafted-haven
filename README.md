@@ -1,5 +1,10 @@
 # Handcrafted Haven
 
+## Team Members
+- Edorh Victoria Godshand
+- Uthman Abisola Kolawole
+- Celine Mafigu
+
 ## Project Overview
 Handcrafted Haven is a modern web application designed to help artisans and crafters showcase and sell unique handcrafted products online. The platform connects talented creators with customers who value handmade goods, creativity, and sustainable shopping.
 
@@ -62,19 +67,12 @@ Brand Colors:
 - White (cards, headers, content areas)
 
 Typography:
-- Poppins
-- Montserrat
+- Poppins (Headers and Subheaders)
+- Montserrat (Body)
 
 ---
 
 ## Project Management
 The team uses:
 - GitHub Repository for code management
-- GitHub Projects / Trello for task management
-
----
-
-## Team Members
-- Edorh Victoria Godshand
-- Uthman Abisola Kolawole
-- Celine Mafigu
+- Trello for task management
