@@ -1,78 +1,36 @@
-# Handcrafted Haven
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Team Members
-- Edorh Victoria Godshand
-- Uthman Abisola Kolawole
-- Celine Mafigu
+## Getting Started
 
----
+First, run the development server:
 
-## Project Overview
-Handcrafted Haven is a modern web application designed to help artisans and crafters showcase and sell unique handcrafted products online. The platform connects talented creators with customers who value handmade goods, creativity, and sustainable shopping.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-The application provides a user-friendly digital marketplace where sellers can create profiles, upload products, and interact with customers through reviews and ratings.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
----
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Project Goals
-- Support local artisans and small businesses
-- Promote handcrafted and sustainable products
-- Create an engaging online shopping experience
-- Build a responsive and accessible web application
-- Encourage community interaction between buyers and sellers
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
----
+## Learn More
 
-## Features
-### Seller Features
-- Seller authentication and profiles
-- Product uploads with descriptions, prices, and images
-- Product management dashboard
+To learn more about Next.js, take a look at the following resources:
 
-### Customer Features
-- Browse products by category
-- Search and filter products
-- Product reviews and ratings
-- Responsive shopping experience
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### General Features
-- Mobile-friendly responsive design
-- Accessibility support (WCAG 2.1 Level AA)
-- SEO-friendly structure
-- Secure backend and database integration
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
----
+## Deploy on Vercel
 
-### Front-End
-- HTML
-- CSS
-- JavaScript
-- Next.js
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-### Back-End
-- Node.js
-- Database (MongoDB)
-
-### Tools & Platforms
-- Git & GitHub
-- GitHub Board / Trello
-- Vercel Deployment
-
----
-
-## Design Theme
-Brand Colors:
-- Orange/Amber (buttons, highlights, prices)
-- Gray (input backgrounds, hover states)
-- White (cards, headers, content areas)
-
-Typography:
-- Poppins (Headers and Subheaders)
-- Montserrat (Body)
-
----
-
-## Project Management
-The team uses:
-- GitHub Repository for code management
-- Trello for task management
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
