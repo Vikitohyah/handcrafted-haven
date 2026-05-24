@@ -26,9 +26,9 @@ export default function Footer() {
           <div className="footer-section">
             <h4>Follow Us</h4>
             <div className="social-icons">
-              <a href="#" aria-label="Instagram">📷 Instagram</a>
-              <a href="#" aria-label="Twitter">🐦 Twitter</a>
-              <a href="#" aria-label="Facebook">📘 Facebook</a>
+              <a href="https://www.instagram.com/" aria-label="Instagram">📷 Instagram</a>
+              <a href="https://x.com/" aria-label="Twitter">🐦 Twitter</a>
+              <a href="https://web.facebook.com/" aria-label="Facebook">📘 Facebook</a>
             </div>
           </div>
  
