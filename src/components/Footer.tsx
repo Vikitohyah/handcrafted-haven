@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
  
         <div className="footer-bottom">
-          <p>© {currentYear} Handcrafted Haven. All rights reserved.</p>
+          <p>&copy; {currentYear} Handcrafted Haven. All rights reserved.</p>
           <p className="reference">Handcrafted Haven – Supporting Artisans Worldwide</p>
           <p className="last-mod">Last Modified: {lastModified}</p>
         </div>
