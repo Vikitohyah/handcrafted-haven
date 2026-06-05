@@ -1,0 +1,97 @@
+.login-container {
+          min-height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #f8f8f8;
+          padding: 2rem;
+        }
+
+        .login-card {
+          width: 100%;
+          max-width: 450px;
+          background: white;
+          padding: 2rem;
+          border-radius: 16px;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .login-card h1 {
+          text-align: center;
+          color: var(--orange);
+          margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+          text-align: center;
+          color: #666;
+          margin-bottom: 2rem;
+        }
+
+        .form-group {
+          margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+        }
+
+        .form-group input {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          font-size: 1rem;
+        }
+
+        .form-group input:focus {
+          outline: none;
+          border-color: var(--orange);
+        }
+
+        .login-btn {
+          width: 100%;
+          padding: 12px;
+          background: var(--orange);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 1rem;
+          cursor: pointer;
+          margin-top: 1rem;
+        }
+
+        .login-btn:hover {
+          opacity: 0.9;
+        }
+
+        .login-btn:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        .error-message {
+          color: red;
+          margin-top: 0.5rem;
+          text-align: center;
+        }
+
+        .extra-links {
+          margin-top: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          /* justify-content: space-between; */
+        }
+
+        .extra-links a {
+          color: var(--orange);
+          text-decoration: none;
+          font-weight: 500;
+        }
+
+        .extra-links a:hover {
+          text-decoration: underline;
+        }
