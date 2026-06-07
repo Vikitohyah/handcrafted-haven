@@ -36,13 +36,6 @@ export default function SellersPage() {
                                             View Profile
                                         </Link>
 
-                                        <Link
-                                            href={`/sellers/${seller.id}/products`}
-                                            className="btn-secondary"
-                                        >
-                                            View Products
-                                        </Link>
-
                                     </div>
                                 </div>
                             ))}
