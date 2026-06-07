@@ -20,7 +20,7 @@ export const products = [
     description: "Handmade clay mug",
     price: 35,
     images: [
-      "https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?q=80&w=800",
+      "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?q=80&w=800"
     ],
     stock: 20,
     averageRating: 4.6,

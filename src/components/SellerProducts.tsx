@@ -9,33 +9,25 @@ interface SellerProductsProps {
   }[];
 }
 
-export default function SellerProducts({
-  products,
-}: SellerProductsProps) {
+export default function SellerProducts({ products }: SellerProductsProps) {
+  if (!products || products.length === 0) {
+    return (
+      <section style={{ padding: "2rem" }}>
+        <h2 style={{ fontSize: "2rem", marginBottom: "1rem", fontWeight: "bold" }}>
+          Products
+        </h2>
+        <p style={{ color: "#666" }}>No products available yet.</p>
+      </section>
+    );
+  }
+
   return (
-    <section
-      style={{
-        padding: "2rem",
-      }}
-    >
-      <h2
-        style={{
-          fontSize: "2rem",
-          marginBottom: "2rem",
-          fontWeight: "bold",
-        }}
-      >
+    <section style={{ padding: "2rem" }}>
+      <h2 style={{ fontSize: "2rem", marginBottom: "2rem", fontWeight: "bold" }}>
         Products
       </h2>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "2rem",
-        }}
-      >
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "2rem" }}>
         {products.map((product) => (
           <ProductCard
             key={product.id}
