@@ -49,5 +49,17 @@ export const sellers = [
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400",
     joined: "June 2026",
   },
+  {
+    id: "4",
+    name: "Sarah Martin",
+    specialty: "Leather Bags",
+    location: "Osun, Nigeria",
+    rating: 4.8,
+    sales: 180,
+    bio: "I create handmade leather bags and accessories using premium materials.",
+    profileImage:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400",
+    joined: "June 2026",
+  },
 ];
 
