@@ -1,10 +1,28 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Heart, Star, ShoppingCart } from "lucide-react";
-import Image from "next/image";
 import "./FeaturedProducts.css";
-const products = [
+
+type Product = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  rating: number;
+  review: string;
+  image: string;
+  category: string;
+  type: string;
+};
+
+type CartItem = Product & {
+  quantity: number;
+};
+
+const products: Product[] = [
   {
     id: 1,
     name: "Handmade Ceramic Mug",
@@ -20,7 +38,7 @@ const products = [
   {
     id: 2,
     name: "Macrame Wall Hanging",
-    description: "Handmade wall decoration that brings beauty and warmth to your room.",
+    description: "Handmade wall decoration that brings warmth to your room.",
     price: 89.99,
     rating: 4.9,
     review: "Very beautiful",
@@ -32,7 +50,7 @@ const products = [
   {
     id: 3,
     name: "Leather Journal",
-    description: "Premium handmade leather journal for notes, sketches, and ideas.",
+    description: "Premium handmade leather journal for notes and sketches.",
     price: 45.0,
     rating: 4.7,
     review: "Perfect gift",
@@ -44,7 +62,7 @@ const products = [
   {
     id: 4,
     name: "Wooden Serving Board",
-    description: "Handcrafted wooden board for serving snacks, cheese, and meals.",
+    description: "Handcrafted wooden board for serving snacks and meals.",
     price: 59.99,
     rating: 4.9,
     review: "Lovely finish",
@@ -53,7 +71,7 @@ const products = [
     category: "Woodworking",
     type: "Kitchen",
   },
-  {
+   {
     id: 5,
     name: "Handmade Scented Candle",
     description: "Natural scented candle made with care for a relaxing home feeling.",
@@ -103,12 +121,12 @@ const products = [
   },
 ];
 
+
 const categories = ["All", ...Array.from(new Set(products.map((p) => p.category)))];
 const types = ["All", ...Array.from(new Set(products.map((p) => p.type)))];
 
 export default function FeaturedProducts() {
   const [favorites, setFavorites] = useState<number[]>([]);
-  const [cart, setCart] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedType, setSelectedType] = useState("All");
   const [selectedPrice, setSelectedPrice] = useState("All");
@@ -123,7 +141,9 @@ export default function FeaturedProducts() {
     const priceMatch =
       selectedPrice === "All" ||
       (selectedPrice === "Under $30" && product.price < 30) ||
-      (selectedPrice === "$30 - $60" && product.price >= 30 && product.price <= 60) ||
+      (selectedPrice === "$30 - $60" &&
+        product.price >= 30 &&
+        product.price <= 60) ||
       (selectedPrice === "Over $60" && product.price > 60);
 
     return categoryMatch && typeMatch && priceMatch;
@@ -131,12 +151,26 @@ export default function FeaturedProducts() {
 
   const toggleFavorite = (id: number) => {
     setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
-  const addToCart = (id: number) => {
-    setCart((prev) => [...prev, id]);
+  const addToCart = (product: Product) => {
+    const savedCart = localStorage.getItem("cart");
+    const currentCart: CartItem[] = savedCart ? JSON.parse(savedCart) : [];
+
+    const existingItem = currentCart.find((item) => item.id === product.id);
+
+    const updatedCart = existingItem
+      ? currentCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      : [...currentCart, { ...product, quantity: 1 }];
+
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    alert(`${product.name} added to cart!`);
   };
 
   return (
@@ -146,13 +180,22 @@ export default function FeaturedProducts() {
           <h2>Featured Products</h2>
           <p>Discover hand-picked treasures from our talented artisans</p>
 
-          <p className="cart-count">
-            <ShoppingCart size={18} /> Cart: {cart.length} item(s)
-          </p>
+          <Link href="/cart" className="cart-link">
+            <button className="cart-summary" type="button">
+              <span className="cart-icon-circle">
+                <ShoppingCart size={20} />
+              </span>
+              <span>View Cart</span>
+              <span className="cart-arrow">→</span>
+            </button>
+          </Link>
         </div>
 
         <div className="filters">
-          <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
             {categories.map((category) => (
               <option key={category} value={category}>
                 Category: {category}
@@ -160,7 +203,10 @@ export default function FeaturedProducts() {
             ))}
           </select>
 
-          <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
+          <select
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+          >
             {types.map((type) => (
               <option key={type} value={type}>
                 Type: {type}
@@ -168,7 +214,10 @@ export default function FeaturedProducts() {
             ))}
           </select>
 
-          <select value={selectedPrice} onChange={(e) => setSelectedPrice(e.target.value)}>
+          <select
+            value={selectedPrice}
+            onChange={(e) => setSelectedPrice(e.target.value)}
+          >
             <option value="All">Price: All</option>
             <option value="Under $30">Under $30</option>
             <option value="$30 - $60">$30 - $60</option>
@@ -190,6 +239,7 @@ export default function FeaturedProducts() {
 
                 <button
                   className="favorite-btn"
+                  type="button"
                   onClick={() => toggleFavorite(product.id)}
                 >
                   <Heart
@@ -205,7 +255,6 @@ export default function FeaturedProducts() {
                 <p className="product-category">
                   {product.category} • {product.type}
                 </p>
-
                 <p className="product-description">{product.description}</p>
 
                 <div className="product-rating">
@@ -216,7 +265,11 @@ export default function FeaturedProducts() {
 
                 <p className="product-price">${product.price.toFixed(2)}</p>
 
-                <button className="add-to-cart" onClick={() => addToCart(product.id)}>
+                <button
+                  className="add-to-cart"
+                  type="button"
+                  onClick={() => addToCart(product)}
+                >
                   Add to Cart
                 </button>
               </div>
