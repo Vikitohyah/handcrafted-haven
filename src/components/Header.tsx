@@ -136,6 +136,14 @@ export default function Header() {
           border-radius: 8px;
           cursor: pointer;
         }
+        .btn-primary-small:hover {
+          background-color: #D35400;
+          text-decoration: underline;
+        }
+
+        .btn-outline:hover {
+          text-decoration: underline;
+        }
         .mobile-menu-btn {
           background: none;
           border: none;
