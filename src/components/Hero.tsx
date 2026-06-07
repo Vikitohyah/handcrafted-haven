@@ -10,8 +10,8 @@ export default function Hero() {
             Discover unique, handcrafted treasures from talented artisans around the world
           </p>
           <div className="hero-buttons">
-            <button className="btn-primary">Shop Now</button>
-            <button className="btn-secondary">Become a Seller</button>
+            <button className="btn-primary"> <a href="/products">Shop Now</a></button>
+            <button className="btn-secondary"><a href="/sellers">Become a Seller</a></button>
           </div>
         </div>
       </div>
@@ -67,6 +67,20 @@ export default function Hero() {
           font-weight: 600;
           cursor: pointer;
         }
+        .btn-primary a, .btn-secondary a {
+          text-decoration: none;
+          color: inherit;
+        }
+        
+        .btn-primary:hover {
+          background-color: #D35400;
+          text-decoration: underline;
+        }
+
+        .btn-secondary:hover {
+          text-decoration: underline;
+        }
+      
         @media (max-width: 768px) {
           .hero { padding: 50px 20px; }
           .hero-title { font-size: 1.8rem; }

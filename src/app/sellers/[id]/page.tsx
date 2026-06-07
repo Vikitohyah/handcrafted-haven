@@ -35,9 +35,17 @@ export default async function SellerPage({
 
       <SellerHeader seller={seller} />
 
-      <SellerProducts products={sellerProducts} />
+      <SellerProducts
+        products={sellerProducts.map((product) => ({
+          id: product.id,
+          title: product.title,
+          price: product.price.toString(),
+          image: product.images?.[0] || "",
+        }))}
+      />
 
       <Footer />
     </>
   );
 }
+
