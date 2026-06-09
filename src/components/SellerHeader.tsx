@@ -34,7 +34,7 @@ export default function SellerHeader({
           color: "#555",
         }}
       >
-        <a href="/marketplace" style={{ color: "inherit", textDecoration: "underline", cursor: "pointer" }}>
+        <a href="/products" style={{ color: "inherit", textDecoration: "underline", cursor: "pointer"}}>
           ← Back to marketplace
         </a>
       </p>
