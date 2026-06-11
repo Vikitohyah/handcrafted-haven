@@ -1,9 +1,13 @@
 "use client";
 
+import HeaderClient from "@/components/HeaderClient";
+import Footer from "@/components/Footer";
+
 export default function AboutPage() {
   return (
     <main>
-      {/* Hero Section */}
+      <HeaderClient />
+
       <section className="about-hero">
         <div className="container">
           <h1 className="about-title">About Handcrafted Haven</h1>
@@ -13,7 +17,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission Section */}
       <section className="mission-section">
         <div className="container">
           <div className="mission-content">
@@ -37,7 +40,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
       <section className="values-section">
         <div className="container">
           <h2 className="section-title">What Makes Us Different</h2>
@@ -66,7 +68,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Story Section */}
       <section className="story-section">
         <div className="container">
           <div className="story-content">
@@ -91,7 +92,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Call to Action Section */}
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">
@@ -104,14 +104,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <style>{`
+      <Footer />
+
+      <style jsx>{`
         .container {
           max-width: 1200px;
           margin: 0 auto;
           padding: 0 20px;
         }
-
-        /* Hero Section */
         .about-hero {
           background: linear-gradient(135deg, #FDF8F0 0%, #FFF 100%);
           padding: 80px 0;
@@ -128,8 +128,6 @@ export default function AboutPage() {
           max-width: 600px;
           margin: 0 auto;
         }
-
-        /* Mission Section */
         .mission-section {
           padding: 60px 0;
         }
@@ -159,8 +157,6 @@ export default function AboutPage() {
         .icon {
           font-size: 120px;
         }
-
-        /* Values Section */
         .values-section {
           background-color: #FDF8F0;
           padding: 60px 0;
@@ -195,8 +191,6 @@ export default function AboutPage() {
           color: #7F8C8D;
           line-height: 1.5;
         }
-
-        /* Story Section */
         .story-section {
           padding: 60px 0;
         }
@@ -215,8 +209,6 @@ export default function AboutPage() {
           line-height: 1.6;
           margin-bottom: 16px;
         }
-
-        /* Call to Action Section */
         .cta-section {
           background-color: #2C3E50;
           padding: 60px 0;
@@ -251,14 +243,10 @@ export default function AboutPage() {
           font-weight: 600;
           cursor: pointer;
         }
-
-        /* Responsive */
         @media (max-width: 768px) {
           .about-title { font-size: 2rem; }
           .mission-content { flex-direction: column; text-align: center; }
           .section-title { font-size: 1.5rem; }
-          .values-grid { gap: 16px; }
-          .cta-content h2 { font-size: 1.3rem; }
         }
       `}</style>
     </main>

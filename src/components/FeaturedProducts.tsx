@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Heart, Star, ShoppingCart } from "lucide-react";
 import "./FeaturedProducts.css";
 
@@ -71,7 +71,7 @@ const products: Product[] = [
     category: "Woodworking",
     type: "Kitchen",
   },
-   {
+  {
     id: 5,
     name: "Handmade Scented Candle",
     description: "Natural scented candle made with care for a relaxing home feeling.",
@@ -121,15 +121,34 @@ const products: Product[] = [
   },
 ];
 
-
 const categories = ["All", ...Array.from(new Set(products.map((p) => p.category)))];
 const types = ["All", ...Array.from(new Set(products.map((p) => p.type)))];
+
+// Helper functions for favorites
+const getStoredFavorites = (): number[] => {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("favorites");
+    return stored ? JSON.parse(stored) : [];
+  }
+  return [];
+};
+
+const saveFavorites = (favorites: number[]) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }
+};
 
 export default function FeaturedProducts() {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedType, setSelectedType] = useState("All");
   const [selectedPrice, setSelectedPrice] = useState("All");
+
+  // Load favorites from localStorage on mount
+  useEffect(() => {
+    setFavorites(getStoredFavorites());
+  }, []);
 
   const filteredProducts = products.filter((product) => {
     const categoryMatch =
@@ -150,9 +169,13 @@ export default function FeaturedProducts() {
   });
 
   const toggleFavorite = (id: number) => {
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+    setFavorites((prev) => {
+      const newFavorites = prev.includes(id)
+        ? prev.filter((item) => item !== id)
+        : [...prev, id];
+      saveFavorites(newFavorites);
+      return newFavorites;
+    });
   };
 
   const addToCart = (product: Product) => {
@@ -173,6 +196,8 @@ export default function FeaturedProducts() {
     alert(`${product.name} added to cart!`);
   };
 
+  const favoriteCount = favorites.length;
+
   return (
     <section className="featured">
       <div className="container">
@@ -180,15 +205,25 @@ export default function FeaturedProducts() {
           <h2>Featured Products</h2>
           <p>Discover hand-picked treasures from our talented artisans</p>
 
-          <Link href="/cart" className="cart-link">
-            <button className="cart-summary" type="button">
-              <span className="cart-icon-circle">
-                <ShoppingCart size={20} />
-              </span>
-              <span>View Cart</span>
-              <span className="cart-arrow">→</span>
-            </button>
-          </Link>
+          <div className="header-buttons">
+            <Link href="/favorites" className="favorites-link">
+              <button className="favorites-summary" type="button">
+                <Heart size={20} fill={favoriteCount > 0 ? "#E67E22" : "none"} stroke="#E67E22" />
+                <span>Favorites ({favoriteCount})</span>
+                <span className="favorites-arrow">→</span>
+              </button>
+            </Link>
+
+            <Link href="/cart" className="cart-link">
+              <button className="cart-summary" type="button">
+                <span className="cart-icon-circle">
+                  <ShoppingCart size={20} />
+                </span>
+                <span>View Cart</span>
+                <span className="cart-arrow">→</span>
+              </button>
+            </Link>
+          </div>
         </div>
 
         <div className="filters">
@@ -241,6 +276,7 @@ export default function FeaturedProducts() {
                   className="favorite-btn"
                   type="button"
                   onClick={() => toggleFavorite(product.id)}
+                  aria-label={favorites.includes(product.id) ? "Remove from favorites" : "Add to favorites"}
                 >
                   <Heart
                     size={20}
