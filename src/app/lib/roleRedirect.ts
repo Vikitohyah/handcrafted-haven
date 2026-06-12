@@ -3,7 +3,7 @@ export function getDashboardRoute(role: string) {
     case "admin":
       return "/admin/dashboard";
     case "seller":
-      return "/seller/dashboard";
+      return "/sellers";
     default:
       return "/customer/dashboard";
   }

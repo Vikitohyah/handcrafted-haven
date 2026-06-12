@@ -18,14 +18,14 @@ export const RegisterSchema = z
       .string()
       .min(8, "Password must be at least 8 characters"),
 
-    confirmPassword: z.string(),
+    // confirmPassword: z.string(),
 
     role: z.enum(["customer", "seller"]),
   })
-  .refine(
-    (data) => data.password === data.confirmPassword,
-    {
-      message: "Passwords do not match",
-      path: ["confirmPassword"],
-    }
-  );
+  // .refine(
+  //   (data) => data.password === data.confirmPassword,
+  //   {
+  //     message: "Passwords do not match",
+  //     path: ["confirmPassword"],
+  //   }
+  // );
