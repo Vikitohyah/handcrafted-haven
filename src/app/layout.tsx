@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Montserrat, Poppins } from "next/font/google"
-import Provider from "@/components/SessionProvider";;
+import { Montserrat, Poppins } from "next/font/google";
+import Provider from "@/components/SessionProvider";
 import "./globals.css";
 
 const montserrat = Montserrat({

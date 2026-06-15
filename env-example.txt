@@ -1,4 +1,0 @@
-AUTH_SECRET=generate_secret_token
-AUTH_URL=http://localhost:3000
-
-MONGODB_URI=mongodb_url

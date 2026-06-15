@@ -1,157 +1,94 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { Heart, Star, ShoppingCart } from "lucide-react";
 import "./FeaturedProducts.css";
 
 type Product = {
-  id: number;
-  name: string;
+  _id: string;
+  sellerId?: string;
+  categoryId?: string;
+  title: string;
   description: string;
   price: number;
-  rating: number;
-  review: string;
-  image: string;
-  category: string;
-  type: string;
+  images: string[];
+  stock?: number;
+  averageRating?: number;
+  reviewCount?: number;
+  category?: string;
+  type?: string;
 };
 
 type CartItem = Product & {
   quantity: number;
 };
 
-const products: Product[] = [
-  {
-    id: 1,
-    name: "Handmade Ceramic Mug",
-    description: "Beautiful handcrafted ceramic mug perfect for coffee and tea.",
-    price: 34.99,
-    rating: 4.8,
-    review: "Excellent quality",
-    image:
-      "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80",
-    category: "Pottery",
-    type: "Kitchen",
-  },
-  {
-    id: 2,
-    name: "Macrame Wall Hanging",
-    description: "Handmade wall decoration that brings warmth to your room.",
-    price: 89.99,
-    rating: 4.9,
-    review: "Very beautiful",
-    image:
-      "https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=600&q=80",
-    category: "Textiles",
-    type: "Decor",
-  },
-  {
-    id: 3,
-    name: "Leather Journal",
-    description: "Premium handmade leather journal for notes and sketches.",
-    price: 45.0,
-    rating: 4.7,
-    review: "Perfect gift",
-    image:
-      "https://images.unsplash.com/photo-1516414447565-b14be0adf13e?auto=format&fit=crop&w=600&q=80",
-    category: "Paper Goods",
-    type: "Stationery",
-  },
-  {
-    id: 4,
-    name: "Wooden Serving Board",
-    description: "Handcrafted wooden board for serving snacks and meals.",
-    price: 59.99,
-    rating: 4.9,
-    review: "Lovely finish",
-    image:
-      "https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=600&q=80",
-    category: "Woodworking",
-    type: "Kitchen",
-  },
-   {
-    id: 5,
-    name: "Handmade Scented Candle",
-    description: "Natural scented candle made with care for a relaxing home feeling.",
-    price: 22.99,
-    rating: 4.8,
-    review: "Smells amazing",
-    image:
-      "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?auto=format&fit=crop&w=600&q=80",
-    category: "Home Decor",
-    type: "Decor",
-  },
-  {
-    id: 6,
-    name: "Woven Storage Basket",
-    description: "Stylish woven basket for organizing blankets, toys, or home items.",
-    price: 38.5,
-    rating: 4.6,
-    review: "Very practical",
-    image:
-      "https://images.unsplash.com/photo-1595351298020-038700609878?auto=format&fit=crop&w=600&q=80",
-    category: "Basketry",
-    type: "Storage",
-  },
-  {
-    id: 7,
-    name: "Handcrafted Beaded Necklace",
-    description: "Unique handmade necklace with colorful artisan beads.",
-    price: 29.99,
-    rating: 4.9,
-    review: "Beautiful craftsmanship",
-    image:
-      "https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=600&q=80",
-    category: "Jewelry",
-    type: "Accessories",
-  },
-  {
-    id: 8,
-    name: "Knitted Throw Blanket",
-    description: "Soft knitted blanket designed for warmth, comfort, and style.",
-    price: 64.99,
-    rating: 4.8,
-    review: "Very cozy",
-    image:
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=600&q=80",
-    category: "Home Decor",
-    type: "Decor",
-  },
-];
+type FeaturedProductsProps = {
+  showAll?: boolean;
+};
 
-
-const categories = ["All", ...Array.from(new Set(products.map((p) => p.category)))];
-const types = ["All", ...Array.from(new Set(products.map((p) => p.type)))];
-
-export default function FeaturedProducts() {
-  const [favorites, setFavorites] = useState<number[]>([]);
+export default function FeaturedProducts({
+  showAll = false,
+}: FeaturedProductsProps) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState("All");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedType, setSelectedType] = useState("All");
-  const [selectedPrice, setSelectedPrice] = useState("All");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("/api/products", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setProducts(data);
+        }
+      } catch (error) {
+        console.error("Failed to load products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const filteredProducts = products.filter((product) => {
-    const categoryMatch =
+    const price = Number(product.price) || 0;
+
+    const matchesPrice =
+      selectedPrice === "All" ||
+      (selectedPrice === "Under $100" && price < 100) ||
+      (selectedPrice === "$100 - $300" && price >= 100 && price <= 300) ||
+      (selectedPrice === "Over $300" && price > 300);
+
+    const matchesCategory =
       selectedCategory === "All" || product.category === selectedCategory;
 
-    const typeMatch =
+    const matchesType =
       selectedType === "All" || product.type === selectedType;
 
-    const priceMatch =
-      selectedPrice === "All" ||
-      (selectedPrice === "Under $30" && product.price < 30) ||
-      (selectedPrice === "$30 - $60" &&
-        product.price >= 30 &&
-        product.price <= 60) ||
-      (selectedPrice === "Over $60" && product.price > 60);
-
-    return categoryMatch && typeMatch && priceMatch;
+    return matchesPrice && matchesCategory && matchesType;
   });
 
-  const toggleFavorite = (id: number) => {
+  const displayProducts = showAll
+    ? filteredProducts
+    : filteredProducts.slice(0, 4);
+
+  const toggleFavorite = (productId: string) => {
     setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
     );
   };
 
@@ -159,26 +96,29 @@ export default function FeaturedProducts() {
     const savedCart = localStorage.getItem("cart");
     const currentCart: CartItem[] = savedCart ? JSON.parse(savedCart) : [];
 
-    const existingItem = currentCart.find((item) => item.id === product.id);
-
-    const updatedCart = existingItem
+    const updatedCart = currentCart.some((item) => item._id === product._id)
       ? currentCart.map((item) =>
-          item.id === product.id
+          item._id === product._id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       : [...currentCart, { ...product, quantity: 1 }];
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    alert(`${product.name} added to cart!`);
+    alert(`${product.title} added to cart!`);
   };
 
   return (
     <section className="featured">
       <div className="container">
         <div className="section-header">
-          <h2>Featured Products</h2>
-          <p>Discover hand-picked treasures from our talented artisans</p>
+          <h2>{showAll ? "All Products" : "Featured Products"}</h2>
+
+          <p>
+            {showAll
+              ? "Browse all handmade products from our artisans"
+              : "Discover hand-picked treasures from our talented artisans"}
+          </p>
 
           <Link href="/cart" className="cart-link">
             <button className="cart-summary" type="button">
@@ -191,93 +131,132 @@ export default function FeaturedProducts() {
           </Link>
         </div>
 
-        <div className="filters">
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                Category: {category}
-              </option>
-            ))}
-          </select>
+        {showAll && (
+          <div className="filters">
+            <select
+              value={selectedPrice}
+              onChange={(event) => setSelectedPrice(event.target.value)}
+            >
+              <option value="All">Price: All</option>
+              <option value="Under $100">Under $100</option>
+              <option value="$100 - $300">$100 - $300</option>
+              <option value="Over $300">Over $300</option>
+            </select>
 
-          <select
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-          >
-            {types.map((type) => (
-              <option key={type} value={type}>
-                Type: {type}
-              </option>
-            ))}
-          </select>
+            <select
+              value={selectedCategory}
+              onChange={(event) => setSelectedCategory(event.target.value)}
+            >
+              <option value="All">Category: All</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Pottery">Pottery</option>
+              <option value="Jewelry">Jewelry</option>
+              <option value="Textiles">Textiles</option>
+              <option value="Wood">Wood</option>
+              <option value="Leather">Leather</option>
+              <option value="Art">Art</option>
+              <option value="Candles">Candles</option>
+            </select>
 
-          <select
-            value={selectedPrice}
-            onChange={(e) => setSelectedPrice(e.target.value)}
-          >
-            <option value="All">Price: All</option>
-            <option value="Under $30">Under $30</option>
-            <option value="$30 - $60">$30 - $60</option>
-            <option value="Over $60">Over $60</option>
-          </select>
-        </div>
+            <select
+              value={selectedType}
+              onChange={(event) => setSelectedType(event.target.value)}
+            >
+              <option value="All">Type: All</option>
+              <option value="Home Decor">Home Decor</option>
+              <option value="Kitchen">Kitchen</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Footwear">Footwear</option>
+            </select>
+          </div>
+        )}
 
         <div className="products-grid">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="product-card">
-              <div className="product-image-container">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  width={400}
-                  height={400}
-                  className="product-image"
-                />
+          {displayProducts.map((product) => {
+            const price = Number(product.price) || 0;
+            const rating = Number(product.averageRating) || 0;
+            const reviewCount = Number(product.reviewCount) || 0;
+            const stock = Number(product.stock) || 0;
+            const imageUrl =
+              product.images?.[0] ||
+              "https://placehold.co/400x400?text=Product+Image";
 
-                <button
-                  className="favorite-btn"
-                  type="button"
-                  onClick={() => toggleFavorite(product.id)}
-                >
-                  <Heart
-                    size={20}
-                    fill={favorites.includes(product.id) ? "#E67E22" : "none"}
-                    stroke={favorites.includes(product.id) ? "#E67E22" : "#666"}
+            return (
+              <div key={product._id} className="product-card">
+                <div className="product-image-container">
+                  <Image
+                    src={imageUrl}
+                    alt={product.title}
+                    width={400}
+                    height={400}
+                    className="product-image"
+                    unoptimized
                   />
-                </button>
-              </div>
 
-              <div className="product-info">
-                <h3>{product.name}</h3>
-                <p className="product-category">
-                  {product.category} • {product.type}
-                </p>
-                <p className="product-description">{product.description}</p>
-
-                <div className="product-rating">
-                  <Star size={16} fill="#FFB800" stroke="#FFB800" />
-                  <span>{product.rating}</span>
-                  <small>({product.review})</small>
+                  <button
+                    className="favorite-btn"
+                    type="button"
+                    onClick={() => toggleFavorite(product._id)}
+                    aria-label="Add product to favorites"
+                  >
+                    <Heart
+                      size={20}
+                      fill={favorites.includes(product._id) ? "#E67E22" : "none"}
+                      stroke={
+                        favorites.includes(product._id) ? "#E67E22" : "#666"
+                      }
+                    />
+                  </button>
                 </div>
 
-                <p className="product-price">${product.price.toFixed(2)}</p>
+                <div className="product-info">
+                  <h3>{product.title}</h3>
 
-                <button
-                  className="add-to-cart"
-                  type="button"
-                  onClick={() => addToCart(product)}
-                >
-                  Add to Cart
-                </button>
+                  <p className="product-stock">
+                    {stock > 0 ? `${stock} items available` : "Out of stock"}
+                  </p>
+
+                  <p className="product-description">
+                    {product.description.length > 80
+                      ? `${product.description.substring(0, 80)}...`
+                      : product.description}
+                  </p>
+
+                  <div className="product-rating">
+                    <Star size={16} fill="#FFB800" stroke="#FFB800" />
+                    <span>{rating.toFixed(1)}</span>
+                    <small>({reviewCount} reviews)</small>
+                  </div>
+
+                  <p className="product-price">${price.toFixed(2)}</p>
+
+                  <button
+                    className="add-to-cart"
+                    type="button"
+                    onClick={() => addToCart(product)}
+                    disabled={stock === 0}
+                  >
+                    {stock > 0 ? "Add to Cart" : "Out of Stock"}
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {filteredProducts.length === 0 && (
+        {!showAll && (
+          <div className="view-all-container">
+            <Link href="/products">
+              <button className="view-all-btn" type="button">
+                View All Products
+              </button>
+            </Link>
+          </div>
+        )}
+
+        {displayProducts.length === 0 && (
           <p className="no-products">No products found.</p>
         )}
       </div>
