@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Heart, Star, ShoppingCart } from "lucide-react";
 import "./FeaturedProducts.css";
+import "@/app/header.css";
 
 type Product = {
   _id: string;
@@ -60,11 +61,6 @@ export default function FeaturedProducts({
     };
 
     fetchProducts();
-  }, []);
-
-  // Load favorites from localStorage on mount
-  useEffect(() => {
-    setFavorites(getStoredFavorites());
   }, []);
 
   const filteredProducts = products.filter((product) => {

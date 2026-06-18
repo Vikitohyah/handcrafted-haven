@@ -1,12 +1,14 @@
 "use client";
 
-import HeaderClient from "@/components/HeaderClient";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header"; 
+import "@/app/header.css";
 
 export default function AboutPage() {
   return (
-    <main>
-      <HeaderClient />
+    <>
+      <Header />
+      <main>
 
       <section className="about-hero">
         <div className="container">
@@ -91,20 +93,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      <section className="cta-section">
-        <div className="container">
-          <div className="cta-content">
-            <h2>Ready to Join Our Community?</h2>
-            <div className="cta-buttons">
-              <button className="btn-primary">Shop Handcrafted Items</button>
-              <button className="btn-secondary">Become a Seller</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
 
       <style jsx>{`
         .container {
@@ -250,5 +238,7 @@ export default function AboutPage() {
         }
       `}</style>
     </main>
+      <Footer />
+    </>
   );
 }

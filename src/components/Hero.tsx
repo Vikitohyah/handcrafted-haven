@@ -11,7 +11,6 @@ export default function Hero() {
           </p>
           <div className="hero-buttons">
             <button className="btn-primary"> <a href="/products">Shop Now</a></button>
-            <button className="btn-secondary"><a href="/sellers">Become a Seller</a></button>
           </div>
         </div>
       </div>
