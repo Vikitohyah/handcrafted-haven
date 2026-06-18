@@ -62,6 +62,11 @@ export default function FeaturedProducts({
     fetchProducts();
   }, []);
 
+  // Load favorites from localStorage on mount
+  useEffect(() => {
+    setFavorites(getStoredFavorites());
+  }, []);
+
   const filteredProducts = products.filter((product) => {
     const price = Number(product.price) || 0;
 
@@ -108,6 +113,8 @@ export default function FeaturedProducts({
     alert(`${product.title} added to cart!`);
   };
 
+  const favoriteCount = favorites.length;
+
   return (
     <section className="featured">
       <div className="container">
@@ -120,15 +127,25 @@ export default function FeaturedProducts({
               : "Discover hand-picked treasures from our talented artisans"}
           </p>
 
-          <Link href="/cart" className="cart-link">
-            <button className="cart-summary" type="button">
-              <span className="cart-icon-circle">
-                <ShoppingCart size={20} />
-              </span>
-              <span>View Cart</span>
-              <span className="cart-arrow">→</span>
-            </button>
-          </Link>
+          <div className="header-buttons">
+            <Link href="/favorites" className="favorites-link">
+              <button className="favorites-summary" type="button">
+                <Heart size={20} fill={favoriteCount > 0 ? "#E67E22" : "none"} stroke="#E67E22" />
+                <span>Favorites ({favoriteCount})</span>
+                <span className="favorites-arrow">→</span>
+              </button>
+            </Link>
+
+            <Link href="/cart" className="cart-link">
+              <button className="cart-summary" type="button">
+                <span className="cart-icon-circle">
+                  <ShoppingCart size={20} />
+                </span>
+                <span>View Cart</span>
+                <span className="cart-arrow">→</span>
+              </button>
+            </Link>
+          </div>
         </div>
 
         {showAll && (
