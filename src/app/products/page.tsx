@@ -1,12 +1,12 @@
-import HeaderClient from "@/components/HeaderClient";
-import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import FeaturedProducts from "@/components/FeaturedProducts";
+import Footer from "@/components/Footer";
 
 export default function ProductsPage() {
   return (
     <main>
-      <HeaderClient />
-      <FeaturedProducts />
+      <Header />
+      <FeaturedProducts showAll />
       <Footer />
     </main>
   );

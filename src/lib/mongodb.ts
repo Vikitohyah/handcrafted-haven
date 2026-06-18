@@ -10,5 +10,6 @@ const client = new MongoClient(uri);
 
 export async function connectDB() {
   await client.connect();
-  return client.db("handcrafted-haven");
+  return client.db("Hndcraft-Haven");
 }
+

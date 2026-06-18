@@ -1,17 +1,7 @@
-import { auth } from "@/auth";
 import MobileMenu from "./MobileMenu";
-import AuthButtons from "./AuthButtons";
-import { Search, Menu, X } from "lucide-react";
-import Link from "next/link";
-// import "./header.css"
+import { Search } from "lucide-react";
 
-export default async function Header() {
-  const session = await auth();
-
-  const user = session?.user;
-
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+export default function Header() {
   return (
     <header className="header">
       <div className="container">
@@ -33,22 +23,17 @@ export default async function Header() {
           <div className="search-container">
             <input
               type="text"
-              placeholder="Search for handcrafted items..."
+              placeholder="Search handcrafted items..."
               className="search-input"
               aria-label="Search products"
             />
             <Search size={20} className="search-icon" />
           </div>
 
-           {/* Auth Buttons (login/logout logic lives inside) */}
-          <AuthButtons />
-
           {/* Mobile Menu */}
           <MobileMenu />
         </div>
-      
       </div>
-
     </header>
   );
 }
