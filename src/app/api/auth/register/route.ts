@@ -10,12 +10,19 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
+    console.log("REGISTER BODY:", body);
+
     const validated =
       RegisterSchema.safeParse(body);
 
     if (!validated.success) {
+      console.log(
+        validated.error.flatten().fieldErrors
+      );
+
       return NextResponse.json(
         {
+          success: false,
           errors:
             validated.error.flatten().fieldErrors,
         },
@@ -35,6 +42,7 @@ export async function POST(req: Request) {
       await User.findOne({ email });
 
     if (existingUser) {
+      console.log("Email already exists");
       return NextResponse.json(
         { message: "Email already exists" },
         { status: 400 }
