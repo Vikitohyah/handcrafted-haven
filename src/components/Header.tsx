@@ -1,5 +1,6 @@
 import MobileMenu from "./MobileMenu";
 import { Search } from "lucide-react";
+import AuthButtons from "./AuthButtons";
 
 export default function Header() {
   return (
@@ -29,6 +30,8 @@ export default function Header() {
             />
             <Search size={20} className="search-icon" />
           </div>
+
+          <AuthButtons />
 
           {/* Mobile Menu */}
           <MobileMenu />

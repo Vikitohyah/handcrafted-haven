@@ -4,6 +4,9 @@ import { connectDB } from "@/lib/mongoose";
 import Product from "@/models/Products";
 import User from "@/models/User";
 import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import "@/app/header.css";
 
 export default async function SellerDashboard() {
   const session = await auth();
@@ -42,7 +45,9 @@ export default async function SellerDashboard() {
       : "0.0";
 
   return (
-    <main className="seller-dashboard">
+    <>
+      <Header />
+      <main className="seller-dashboard">
       {/* Welcome Banner */}
       <section className="dashboard-banner">
         <div>
@@ -145,6 +150,10 @@ export default async function SellerDashboard() {
           </div>
         )}
       </section>
-    </main>
+      </main>
+      <Footer />
+    
+    </>
+    
   );
 }

@@ -22,10 +22,6 @@ export default function CustomerDashboard() {
             <p>0</p>
           </div>
 
-          <div className="stat-card">
-            <h3>Favorites</h3>
-            <p>0</p>
-          </div>
         </section>
 
         <div className="action-row">
