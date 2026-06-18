@@ -15,6 +15,10 @@ export default function RegisterForm() {
 
   const [message, setMessage] =
     useState("");
+    const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState<
+  "success" | "error" | ""
+>("");
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -28,10 +32,14 @@ export default function RegisterForm() {
     });
   };
 
-  const handleSubmit = async (
-    e: React.FormEvent
-  ) => {
-    e.preventDefault();
+const handleSubmit = async (
+  e: React.FormEvent
+) => {
+  e.preventDefault();
+
+  try {
+    setLoading(true);
+    setMessage("");
 
     const response = await fetch(
       "/api/auth/register",
@@ -41,17 +49,38 @@ export default function RegisterForm() {
           "Content-Type":
             "application/json",
         },
-        body: JSON.stringify(
-          formData
-        ),
+        body: JSON.stringify(formData),
       }
     );
 
-    const data =
-      await response.json();
+    const data = await response.json();
 
-    setMessage(data.message);
-  };
+    if (!response.ok) {
+      setStatus("error");
+
+      setMessage(
+        data.message ||
+          Object.values(data.errors || {})
+            .flat()
+            .join(", ")
+      );
+      return;
+    }
+
+    setStatus("success");
+    setMessage(
+      data.message ||
+        "Registration successful!"
+    );
+  } catch (error) {
+    setStatus("error");
+    setMessage(
+      "Something went wrong. Please try again."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <form
@@ -111,11 +140,26 @@ export default function RegisterForm() {
         </option>
       </select>
 
-      <button type="submit">
-        Register
-      </button>
+      <button
+  type="submit"
+  disabled={loading}
+>
+  {loading
+    ? "Creating Account..."
+    : "Register"}
+</button>
 
-      {message && <p>{message}</p>}
+     {message && (
+  <p
+    className={`message ${
+      status === "success"
+        ? "success-message"
+        : "error-message"
+    }`}
+  >
+    {message}
+  </p>
+)}
     </form>
   );
 }
