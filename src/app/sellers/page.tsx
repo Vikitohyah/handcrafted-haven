@@ -1,10 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
-import { sellers } from "@/data/sellers";
+import User from "@/models/User";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import "@/app/header.css";
 
-export default function SellersPage() {
+import { connectDB } from "@/lib/mongoose";
+
+export default async function SellersPage() {
+  await connectDB();
+
+  const sellers = await User.find({ role: "seller" });
 
     return (
         <>
@@ -15,22 +21,25 @@ export default function SellersPage() {
                         <h1>Meet Our Artisans</h1>
                         <div className="seller-content">
                             {sellers.map((seller) => (
-                                <div key={seller.id} className="seller-card">
+                                <div key={seller._id} className="seller-card">
                                     <Image
-                                        src={seller.profileImage}
-                                        alt={seller.name}
+                                        src={
+                                            seller.profileImage ||
+                                            "https://placehold.co/300x250?text=Seller"
+                                        }
+                                        alt={`${seller.firstName} ${seller.lastName}`}
                                         width={300}
                                         height={250}
-                                    />
+                                     />
                                     <div className="seller-info">
-                                        <h2>{seller.name}</h2>
-                                        <p>{seller.specialty}</p>
-                                        <p>{seller.location}</p>
-                                        <p>⭐ {seller.rating}</p>
+                                        <h2>{seller.firstName} {seller.lastName}</h2>
+                                        <p>{seller.bio || "Handcrafted artisan on Handcrafted Haven."}</p>
+                                        <p className="seller-location">{seller.location}</p>
+                                        <p>⭐ Artisan Seller</p>
                                     </div>
                                     <div className="seller-actions">
                                         <Link
-                                            href={`/sellers/${seller.id}`}
+                                            href={`/sellers/${seller._id.toString()}`}
                                             className="btn-primary"
                                         >
                                             View Profile
@@ -73,6 +82,11 @@ export default function SellersPage() {
                         }
                         .seller-info {
                             padding: 1rem;
+                        }
+                        .seller-location {
+                            font-style: italic;
+                            font-weight: bold;
+                            color: #555;
                         }
                         .seller-actions {
                             display: flex;

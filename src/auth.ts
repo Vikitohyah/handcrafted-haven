@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
 
 import User from "@/models/User";
-import { connectDB } from "@/app/lib/mongodb";
+import { connectDB } from "@/lib/mongoose";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
