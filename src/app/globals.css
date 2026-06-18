@@ -69,3 +69,261 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--orange);
   color: white;
 }
+
+/* =========================
+   SELLER DASHBOARD
+========================= */
+
+.seller-dashboard {
+  min-height: 100vh;
+  padding: 2rem;
+  background: #fdf8f0;
+}
+
+/* =========================
+   CUSTOMER DASHBOARD
+========================= */
+
+.customer-dashboard {
+  min-height: 100vh;
+  padding: 2rem;
+  background: #fdf8f0;
+}
+
+/* =========================
+   BANNER
+========================= */
+
+.dashboard-banner {
+  background: linear-gradient(
+    135deg,
+    var(--orange) 0%,
+    #c78d5d
+  );
+  color: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-banner h1 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.dashboard-banner p {
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 650px;
+  opacity: 0.95;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  );
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 18px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card h3 {
+  color: var(--gray);
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.stat-card p {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--orange);
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.action-btn {
+  display: inline-block;
+  background: var(--orange);
+  color: white;
+  text-decoration: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background: var(--orange-dark);
+  transform: translateY(-2px);
+}
+
+/* =========================
+   PRODUCTS SECTION
+========================= */
+
+.products-section h2 {
+  color: var(--orange);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(260px, 1fr)
+  );
+  gap: 1.5rem;
+}
+
+.product-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+}
+
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.product-content {
+  padding: 1rem;
+}
+
+.product-content h3 {
+  color: #333;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.product-content p {
+  margin-bottom: 0.5rem;
+  color: var(--orange);
+}
+
+.price {
+  color: #c78d5d !important;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+  background: white;
+  border-radius: 18px;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.empty-state p {
+  margin-bottom: 1rem;
+  color: #666;
+  font-size: 1.05rem;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f4ede3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-dark);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .seller-dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-banner {
+    padding: 1.5rem;
+  }
+
+  .dashboard-banner h1 {
+    font-size: 1.6rem;
+  }
+
+  .action-row {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .product-card img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-banner h1 {
+    font-size: 1.4rem;
+  }
+
+  .stat-card p {
+    font-size: 1.6rem;
+  }
+
+  .products-section h2 {
+    font-size: 1.5rem;
+  }
+}

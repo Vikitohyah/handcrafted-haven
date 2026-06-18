@@ -46,6 +46,11 @@ const UserSchema = new Schema(
       default: "",
     },
 
+    location: {
+      type: String,
+      default: "",
+    },
+
     favorites: [
       {
         type: Schema.Types.ObjectId,

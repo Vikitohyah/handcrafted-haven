@@ -1,4 +1,4 @@
-import { connectDB } from "@/app/lib/mongodb";
+import { connectDB } from "@/lib/mongoose";
 import { RegisterSchema } from "@/app/lib/validations/registerSchema";
 import User from "@/models/User";
 import bcrypt from "bcrypt";

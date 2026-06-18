@@ -17,7 +17,9 @@ export default function AuthButtons() {
 
   return (
     <div className="auth-buttons">
-      <span className="role-badge">{session.user.name}</span>
+      <Link href="/dashboard" className="role-badge">
+        {session.user.name}
+      </Link>
 
       <button
         className="btn-outline"

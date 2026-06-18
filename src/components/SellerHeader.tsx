@@ -1,148 +1,89 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import "@/app/header.css";
 
 interface SellerHeaderProps {
   seller: {
-    id: string;
-    name: string;
-    specialty: string;
+    firstName: string;
+    lastName: string;
     location: string;
-    rating: number;
-    sales: number;
     bio: string;
     profileImage: string;
-    joined: string;
+    createdAt?: string;
   };
+  isOwner?: boolean;
 }
 
 export default function SellerHeader({
   seller,
+  isOwner = false,
 }: SellerHeaderProps) {
-  const isOwner = true;
-
   return (
     <section
       style={{
-          background: "linear-gradient(135deg, #FDF8F0 0%, #FFF 100%)",
-          padding: "3rem 2rem",
+        background: "linear-gradient(135deg, #FDF8F0 0%, #FFF 100%)",
+        padding: "3rem 2rem",
       }}
     >
-      <p
-        style={{
-          marginBottom: "2rem",
-          color: "#555",
-        }}
-      >
-        <a href="/products" style={{ color: "inherit", textDecoration: "underline", cursor: "pointer"}}>
+      <p style={{ marginBottom: "2rem", color: "#555" }}>
+        <Link href="/products" style={{ textDecoration: "underline" }}>
           ← Back to marketplace
-        </a>
+        </Link>
       </p>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "2rem",
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
+      <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap", alignItems: "center" }}>
         <Image
-          src={seller.profileImage}
-          alt={seller.name}
+          src={
+            seller.profileImage ||
+            "https://placehold.co/300x300?text=Seller"
+          }
+          alt={`${seller.firstName} ${seller.lastName}`}
           width={140}
           height={140}
-          style={{
-            borderRadius: "50%",
-            objectFit: "cover",
-          }}
+          style={{ borderRadius: "50%" }}
         />
 
         <div>
-          <h1
-            style={{
-              fontSize: "2.5rem",
-              fontWeight: "bold",
-            }}
-          >
-            {seller.name}
+          <h1 style={{ fontSize: "2.5rem", fontWeight: "bold" }}>
+            {seller.firstName} {seller.lastName}
           </h1>
 
-          <p
-            style={{
-              color: "#d97706",
-              fontSize: "1.4rem",
-              marginTop: "0.5rem",
-            }}
-          >
-            {seller.specialty}
+          <p style={{ color: "#d97706", fontSize: "1.2rem" }}>
+            Artisan Seller
           </p>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "1.5rem",
-              marginTop: "1rem",
-              flexWrap: "wrap",
-            }}
-          >
-            <span>📍 {seller.location}</span>
-            <span>⭐ {seller.rating}</span>
-            <span>🏆 {seller.sales} sales</span>
-          </div>
+          <p>📍 {seller.location}</p>
 
-          <p
-            style={{
-              marginTop: "1rem",
-              maxWidth: "700px",
-              lineHeight: "1.8",
-            }}
-          >
-            {seller.bio}
+          <p style={{ marginTop: "1rem", maxWidth: "600px" }}>
+            {seller.bio || "Handcrafted artisan on Handcrafted Haven."}
           </p>
 
-          <p
-            style={{
-              marginTop: "1rem",
-              color: "#666",
-            }}
-          >
-            Member since {seller.joined}
+          <p style={{ color: "#666", marginTop: "1rem" }}>
+            Member since{" "}
+            {seller.createdAt
+              ? new Date(seller.createdAt).getFullYear()
+              : "Recently"}
           </p>
 
+          {/* ONLY SHOW IF OWNER */}
           {isOwner && (
-            <div
-              style={{
-                marginTop: "1.5rem",
-                display: "flex",
-                gap: "1rem",
-                flexWrap: "wrap",
-              }}
-            >
-              <button
-                style={{
-                  padding: "0.8rem 1.2rem",
-                  border: "none",
-                  borderRadius: "8px",
-                  backgroundColor: "#111",
-                  color: "white",
-                  cursor: "pointer",
-                }}
-              >
-                Edit Profile
-              </button>
-
-              <button
-                style={{
-                  padding: "0.8rem 1.2rem",
-                  borderRadius: "8px",
-                  border: "1px solid #111",
-                  background: "white",
-                  cursor: "pointer",
-                }}
-              >
-                Add Product
-              </button>
+            <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem" }}>
+              <Link href="/seller/dashboard">
+                <button
+                  style={{
+                    padding: "0.8rem 1.2rem",
+                    background: "#111",
+                    color: "#fff",
+                    borderRadius: "8px",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  Go To Dashboard
+                </button>
+              </Link>
             </div>
           )}
         </div>
