@@ -128,7 +128,7 @@ export default function FeaturedProducts({
               <button className="favorites-summary" type="button">
                 <Heart size={20} fill={favoriteCount > 0 ? "#E67E22" : "none"} stroke="#E67E22" />
                 <span>Favorites ({favoriteCount})</span>
-                <span className="favorites-arrow">→</span>
+                <span className="favorites-arrow"></span>
               </button>
             </Link>
 
