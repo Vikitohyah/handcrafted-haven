@@ -161,13 +161,13 @@ export default function FeaturedProducts({
               onChange={(event) => setSelectedCategory(event.target.value)}
             >
               <option value="All">Category: All</option>
-              <option value="Furniture">Furniture</option>
-              <option value="Pottery">Pottery</option>
+              <option value="Arts">Arts</option>
+              <option value="Accessories">Accessories</option>
               <option value="Jewelry">Jewelry</option>
-              <option value="Textiles">Textiles</option>
-              <option value="Wood">Wood</option>
+              <option value="Shoes">Shoes</option>
+              <option value="Woodwork">Woodwork</option>
               <option value="Leather">Leather</option>
-              <option value="Art">Art</option>
+              <option value="Bags">Bags</option>
               <option value="Candles">Candles</option>
             </select>
 
